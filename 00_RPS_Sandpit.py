@@ -2,8 +2,7 @@
 
 
 # Functions go here
-def choice_checker(question):
-    error = "please choose from rock/ paper/ scissors (or xxx to quit)"
+def choice_checker(question, error):
 
     while True:
 

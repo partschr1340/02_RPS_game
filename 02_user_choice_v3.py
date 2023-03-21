@@ -27,6 +27,7 @@ rps_list = ["rock", "paper", "scissors", "xxx"]
 # loop for testing purpose
 user_choice = ""
 while user_choice != "xxx":
+
     # Ask user for choice and check it's valid
     user_choice = choice_checker("Choose ROCK/PAPER/SCISSORS(r/p/s):", rps_list,
                                  "please choose from ROCK/PAPER/SCISSORS (or xxx to quit)")

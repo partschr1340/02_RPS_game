@@ -6,14 +6,12 @@ def choice_checker(question):
         response = input(question).lower()
 
         if response == "r" or response == "rock":
-            response = "rock"
             print()
-            return response
+            return "rock"
 
         elif response == "p" or response == "paper":
-            response = "paper"
             print()
-            return response
+            return "paper"
 
         # Check for exit code
         elif response == "xxx":
@@ -24,8 +22,7 @@ def choice_checker(question):
         else:
             if response == "s" or response == "scissors":
                 print()
-                response = "scissors"
-                return response
+                return "scissors"
 
             # If user chooses anything other than r/p/s display error message
             else:

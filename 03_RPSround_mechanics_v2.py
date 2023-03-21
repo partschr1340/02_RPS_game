@@ -24,19 +24,36 @@ def check_rounds():
 # Main routine goes here
 
 rounds_played = 0
+mode = "regular"
+
 choose_instruction = "Please choose rock (r), paper (p) or scissors (s)"
+
+
+def choice_checker(question):
+    error = "please choose from rock/ paper/ scissors (or xxx to quit)"
+
+    while True:
+
+        # Ask user for choice (and put choice in lowercase)
+        response = input(question).lower()
+
+        if response == "r" or response == "rock":
+            return "rock"
+        elif response == "p" or response == "paper":
+            return "paper"
+        elif response == "s" or response == "scissors":
+            return "scissors"
+
 
 # Ask user for # of rounds, <enter for infinite mode
 rounds = check_rounds()
-
-mode = "regular"
 
 if rounds == "":
     mode = "infinite"
     rounds = 5
 
 while rounds_played < rounds:
-
+    # Rounds Heading
     print()
     if mode == "infinite":
         heading = "Continuous Mode:Round {}".format(rounds_played + 1)
