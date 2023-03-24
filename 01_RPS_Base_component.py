@@ -85,7 +85,22 @@ while end_game == "no":
 
     # Compare choices
     if comp_choice == choose:
-        results = "tie"
+        result = "tie"
+        rounds_drawn += 1
+    elif choose == "rock" and comp_choice == "scissors":
+        result = "won"
+    elif choose == "paper" and comp_choice == "rock":
+        result = "won"
+    elif choose == "scissors" and comp_choice == "paper":
+        result = "won"
+    else:
+        result = "lost"
+        rounds_played += 1
+
+    if result == "tie":
+        feedback = "It's a tie"
+    else:
+        feedback = "{} vs {} - you {}".format(choose, comp_choice, result)
 
     # rest of loop / game
     print()
