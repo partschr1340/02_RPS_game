@@ -1,11 +1,14 @@
-# Function used to check input is valid
+import random
 
+
+# Functions go here
 def check_rounds():
     while True:
         response = input("How many rounds: ")
 
         round_error = "Please type either <enter> or an that is more than 0"
 
+        # If infinite mode not choose, check response is an integer that is more than 0
         if response != "":
             try:
                 response = int(response)
@@ -21,10 +24,34 @@ def check_rounds():
         return response
 
 
-# Main routine goes here...
+def choice_checker(question, valid_list, error):
+    while True:
+        # Ask user for choice (and put choice in lowercase)
+        response = input(question).lower()
 
+        # iterates through list and if response is an item in the list (or the first letter of an item),
+        # the full item name is returned
+
+        for item in valid_list:
+            if response == item[0] or response == item:
+                return item
+
+        # output error if item not in list
+        print(error)
+        print()
+
+
+# List of valid responses
+
+rps_list = ["rock", "paper", "scissors", "xxx"]
+yes_no_list = ["yes", "no"]
+
+# Main routine goes here
+
+# Ask user for # of rounds then loop
 rounds_played = 0
-choose_instruction = "Please choose Rock(r), Paper(p) or Scissors(s)"
+rounds_lost = 0
+rounds_drawn = 0
 
 # Asl user for the # of rounds, <enter> for infinite mode
 rounds = check_rounds()
@@ -32,24 +59,76 @@ rounds = check_rounds()
 end_game = "no"
 while end_game == "no":
 
+    # Start of Game Play Loop
+
+    # Rounds heading
     print()
     if rounds == "":
-        heading = "Continuous Mode: Round {}".format(rounds_played)
-        print(heading)
-        choose = input("{} or 'xxx' to end:".format(choose_instruction))
-        if choose == 'xxx':
-            break
+        heading = "Continuous Mode:" "Round {}".format(rounds_played + 1)
     else:
-        heading = "Round {} of {}".format(rounds_played + 1, rounds)
-        print(heading)
-        choose = input(choose_instruction)
-        if rounds_played == rounds - 1:
-            end_game = "yes"
+        heading = "normal mode :" "Round {}".format(rounds_played + 1, rounds)
 
-    # rest of loop/game
-    print("You chose {}".format(choose))
+    print(heading)
+
+    choose_instruction = "Please choose rock (r)/ paper(p)/ scissors(s) or 'xxx' to exit: "
+
+    # Ask user for choice and check it's valid
+    choose_error = "Please choose from Rock / Paper / Scissors (or xxx to end game)"
+
+    # Ask user for choice and check it's valid
+    User_choice = choice_checker(choose_instruction, rps_list, choose_error)
+
+    # get computer choice
+    comp_choice = random.choice(rps_list[:-1])
+    print("Comp Choice: ", comp_choice)
+
+    # Compare choices
+    if comp_choice == User_choice:
+        result = "tied 👔"
+        rounds_drawn += 1
+    elif User_choice == "rock" and comp_choice == "scissors":
+        result = "won, nice 🙊"
+    elif User_choice == "paper" and comp_choice == "rock":
+        result = "won, nice 🙊"
+    elif User_choice == "scissors" and comp_choice == "paper":
+        result = "won, nice 🙊"
+    else:
+        result = "lost, L bozo 👎🏽😂"
+        rounds_lost += 1
+
+    feedback = "{} vs {} - You {}".format(User_choice, comp_choice, result)
+    print(feedback)
+
+    # End game if exit code is typed
+    if User_choice == "xxx":
+        break
+
+    # rest of loop / game
+    print()
+    print("You chose {}".format(User_choice))
 
     rounds_played += 1
 
+    # end game if requested # of rounds has been played
+    if rounds_played == rounds:
+        break
+
+# Ask user if they have played the game before.
+# If 'no' show instructions
+
+# Quick Calculations (stats)
+rounds_won = rounds_played - rounds_lost - rounds_drawn
+
+# ask user # of rounds then loop...
+
+# Ask user if they want to see their game history
+# If user answers 'yes' show game history
+
+# Show game statistics
+
+
+# End of Game Statements
 print()
-print("Thank you for playing")
+print('******** END GAME SUMMARY ********')
+print("Won: {} \t|\t Lost: {} \t|\t Draw: {}".format(rounds_won, rounds_lost, rounds_drawn))
+print()

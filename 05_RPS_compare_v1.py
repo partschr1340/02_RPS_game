@@ -8,4 +8,7 @@ for item in rps_list:
         comp_choice = rps_list[comp_index]
         user_index += 1
 
+        # Compare options...
+
+
 
