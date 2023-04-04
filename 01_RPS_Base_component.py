@@ -1,6 +1,44 @@
 import random
 
 
+# Ask the user if they have played game before and check that answer is valid
+def yes_no(question):
+    valid = False
+    while not valid:
+        response = input(question).lower()
+
+        if response == "yes" or response == "y":
+            response = "yes"
+            return response
+
+        elif response == "no" or response == "n":
+            response = "no"
+            return response
+
+        else:
+            print()
+            print("============================")
+            print("**please answer yes or no**")
+            print("============================")
+            print()
+
+
+# Displays instructions, returns""
+def instructions():
+    print("********HOW TO PLAY********")
+    print()
+    print("=====The rules of the game go here=====")
+    print()
+    print("You are asked to choose")
+    print("\tROCK\tPAPER\tSCISSORS")
+    print("The choice you make will then be compared to a computer choice")
+    print("You will either win, lose or tie against the computer choice")
+    print("The result will then be displayed whether you win, lost, or tied")
+    print("This will repeat until number of rounds have been reached, or when 'xxx' is typed to end game")
+    print("")
+    return ""
+
+
 # Functions go here
 def check_rounds():
     while True:
@@ -24,6 +62,7 @@ def check_rounds():
         return response
 
 
+# Check users response is valid
 def choice_checker(question, valid_list, error):
     while True:
         # Ask user for choice (and put choice in lowercase)
@@ -47,6 +86,12 @@ rps_list = ["rock", "paper", "scissors", "xxx"]
 yes_no_list = ["yes", "no"]
 
 # Main routine goes here
+played_before = yes_no("=====Have you played the game before?=====")
+
+if played_before == "no":
+    instructions()
+
+print()
 
 rounds_played = 0
 rounds_lost = 0
