@@ -48,11 +48,11 @@ yes_no_list = ["yes", "no"]
 
 # Main routine goes here
 
-# Ask user for # of rounds then loop
 rounds_played = 0
 rounds_lost = 0
 rounds_drawn = 0
 
+# Ask user for # of rounds then loop
 # Asl user for the # of rounds, <enter> for infinite mode
 rounds = check_rounds()
 
@@ -70,43 +70,44 @@ while end_game == "no":
 
     print(heading)
 
-    choose_instruction = "Please choose rock (r)/ paper(p)/ scissors(s) or 'xxx' to exit"
+    # Tell the user what their options are
+    choose_instruction = "Please choose rock (r)/ paper(p)/ scissors(s) or 'xxx' to exit: "
 
-    # Ask user for choice and check it's valid
+    # Print error message if user choice is not valid
     choose_error = "Please choose from Rock / Paper / Scissors (or xxx to end game)"
 
-    # Ask user for choice and check it's valid
-    choose = choice_checker(choose_instruction, rps_list, choose_error)
+    # Ask user for choice and check if it's valid
+    User_choice = choice_checker(choose_instruction, rps_list, choose_error)
+
+    # End game if exit code is typed
+    if User_choice == "xxx":
+        print("Later Broski")
+        break
 
     # get computer choice
     comp_choice = random.choice(rps_list[:-1])
-    print(comp_choice)
+    print("Comp Choice: ", comp_choice)
 
-    # Compare choices
-    if comp_choice == choose:
-        result = "tie"
+    # Compare computer and user choices
+    if comp_choice == User_choice:
+        result = "tied 👔"
         rounds_drawn += 1
-    elif choose == "rock" and comp_choice == "scissors":
-        result = "won"
-    elif choose == "paper" and comp_choice == "rock":
-        result = "won"
-    elif choose == "scissors" and comp_choice == "paper":
-        result = "won"
+    elif User_choice == "rock" and comp_choice == "scissors":
+        result = "won, nice 🙊"
+    elif User_choice == "paper" and comp_choice == "rock":
+        result = "won, nice 🙊"
+    elif User_choice == "scissors" and comp_choice == "paper":
+        result = "won, nice 🙊"
     else:
-        result = "lost"
+        result = "lost, L bozo 👎🏽😂"
+        rounds_lost += 1
 
-    if result == "tie":
-        feedback = "It's a tie"
-    else:
-        feedback = "{} vs {} - you {}".format(choose, comp_choice, result)
-
-    # End game if exit code is typed
-    if choose == "xxx":
-        break
+    feedback = "{} vs {} - You {}".format(User_choice, comp_choice, result)
+    print(feedback)
 
     # rest of loop / game
     print()
-    print("You chose {}".format(choose))
+    print("You chose {}".format(User_choice))
 
     rounds_played += 1
 
@@ -117,6 +118,8 @@ while end_game == "no":
 # Ask user if they have played the game before.
 # If 'no' show instructions
 
+# Quick Calculations (stats)
+rounds_won = rounds_played - rounds_lost - rounds_drawn
 
 # ask user # of rounds then loop...
 
@@ -124,11 +127,11 @@ while end_game == "no":
 # If user answers 'yes' show game history
 
 # Show game statistics
-# Quick Calculations (stats)
-rounds_won = rounds_played - rounds_lost - rounds_drawn
+
 
 # End of Game Statements
 print()
 print('******** END GAME SUMMARY ********')
 print("Won: {} \t|\t Lost: {} \t|\t Draw: {}".format(rounds_won, rounds_lost, rounds_drawn))
 print()
+print("Later bo")
