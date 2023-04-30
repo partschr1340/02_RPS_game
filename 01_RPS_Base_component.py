@@ -1,7 +1,7 @@
 import random
 
 
-# Ask the user if they have played game before and check that answer is valid
+# ask user # of rounds then loop...
 def yes_no(question):
     valid = False
     while not valid:
@@ -23,23 +23,29 @@ def yes_no(question):
             print()
 
 
-# Displays instructions, returns""
+# Ask user if they have played the game before.
+# If 'no' show instructions
 def instructions():
     print("********HOW TO PLAY********")
     print()
     print("=====The rules of the game go here=====")
     print()
-    print("You are asked to choose")
+    print("choose how many rounds you wish to play, or press <enter> for infinite mode")
+    print()
+    print("****=You are asked to choose=****")
     print("\tROCK\tPAPER\tSCISSORS")
-    print("The choice you make will then be compared to a computer choice")
-    print("You will either win, lose or tie against the computer choice")
-    print("The result will then be displayed whether you win, lost, or tied")
-    print("This will repeat until number of rounds have been reached, or when 'xxx' is typed to end game")
-    print("")
+    print("**or xxx to end game")
+    print()
+    print("Rules are...")
+    print("-Rock beats scissors")
+    print("-Scissors beats paper")
+    print("-Paper beats rock")
+    print()
+    print("Good luck homie 🧛‍♀️")
     return ""
 
 
-# Functions go here
+# Ask users for rounds( checks if response is valid )
 def check_rounds():
     while True:
         response = input("How many rounds: ")
@@ -85,7 +91,10 @@ def choice_checker(question, valid_list, error):
 rps_list = ["rock", "paper", "scissors", "xxx"]
 yes_no_list = ["yes", "no"]
 
+game_history = []
+
 # Main routine goes here
+# Introduction question
 played_before = yes_no("=====Have you played the game before?=====")
 
 if played_before == "no":
@@ -124,6 +133,8 @@ while end_game == "no":
     # Ask user for choice and check if it's valid
     User_choice = choice_checker(choose_instruction, rps_list, choose_error)
 
+    print("You chose: {}".format(User_choice))
+
     # End game if exit code is typed
     if User_choice == "xxx":
         print("Later Broski")
@@ -144,15 +155,17 @@ while end_game == "no":
     elif User_choice == "scissors" and comp_choice == "paper":
         result = "won, nice 🙊"
     else:
-        result = "lost, L bozo 👎🏽😂"
+        result = "lost, Unlucky 👎🏽😂"
         rounds_lost += 1
 
     feedback = "{} vs {} - You {}".format(User_choice, comp_choice, result)
     print(feedback)
 
+    # add feedback to list and include round number
+    outcome = f"Round {rounds_played + 1}: {feedback}"
+    game_history.append(outcome)
+
     # rest of loop / game
-    print()
-    print("You chose {}".format(User_choice))
 
     rounds_played += 1
 
@@ -160,23 +173,33 @@ while end_game == "no":
     if rounds_played == rounds:
         break
 
-# Ask user if they have played the game before.
-# If 'no' show instructions
 
 # Quick Calculations (stats)
 rounds_won = rounds_played - rounds_lost - rounds_drawn
 
-# ask user # of rounds then loop...
+if rounds_played > 0:
 
-# Ask user if they want to see their game history
-# If user answers 'yes' show game history
+    # displays game stats with % values to the nearest whole number
+    # Calculate Game Stats
+    percent_win = rounds_won / rounds_played * 100
+    percent_lost = rounds_lost / rounds_played * 100
+    percent_tie = rounds_drawn / rounds_played * 100
 
-# Show game statistics
+    print()
+    # show game history (ie: round and feedback)
+    for item in game_history:
+        print(item)
 
+        # End of Game Statements
+    print()
+    print()
+    print('******** END GAME SUMMARY ********')
+    print("Won: {} \t|\t Lost: {} \t|\t Draw: {}".format(rounds_won, rounds_lost, rounds_drawn))
+    print()
+    print(f"Win: {rounds_won}, ({percent_win:.0f}%)\nLoss: {rounds_lost},"
+          f" ({ percent_lost:.0f}%)\nTie: {rounds_drawn}, ({percent_tie:.0f}%)")
+    print()
+    print("Later bo")
 
-# End of Game Statements
-print()
-print('******** END GAME SUMMARY ********')
-print("Won: {} \t|\t Lost: {} \t|\t Draw: {}".format(rounds_won, rounds_lost, rounds_drawn))
-print()
-print("Later bo")
+else:
+    print("🐔🐔🐔 You chickened out 🐣🐣🐣")
